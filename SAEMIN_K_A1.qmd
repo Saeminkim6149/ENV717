@@ -7,7 +7,6 @@ format:
     number-sections: true
 execute:
   echo: false
-jupyter: python3
 ---
 
 # Introduction
