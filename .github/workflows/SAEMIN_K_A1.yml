@@ -22,13 +22,11 @@ jobs:
         run: |
           Rscript -e "install.packages('tinytex', repos='https://cran.rstudio.com/')"
           Rscript -e "tinytex::install_tinytex()"
-        # tinytex 설치는 처음 한 번 시간이 걸립니다.
 
       - name: Install Python Jupyter deps
         run: |
           python3 -m pip install --upgrade pip
           python3 -m pip install jupyter nbformat nbconvert ipykernel
-        # nbformat, jupyter 등 Quarto가 notebook-style Python chunks를 실행할 때 필요합니다.
 
       - name: (optional) list files (debug)
         run: ls -la
