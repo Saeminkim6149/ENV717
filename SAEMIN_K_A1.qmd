@@ -7,7 +7,57 @@ format:
     number-sections: true
 execute:
   echo: false
+jupyter: python3
 ---
+
 # Introduction
 
 This report analyzes the structure of the U.S. electricity industry using the EPA eGRID2023 dataset and PJM market information.
+
+# Question 1: Overview of the U.S. Electricity Industry
+
+This section summarizes ownership structure and ISO/RTO participation using eGRID 2023 data.
+
+## Question 1a: Ownership Structure
+
+```{python}
+import pandas as pd
+df_q1a = pd.read_csv("data/A1_Q1a.csv")
+df_q1a
+```
+
+## Question 1b: ISO/RTO Association by State
+
+```{python}
+df_q1b = pd.read_csv("data/A1_Q1b.csv")
+df_q1b
+```
+
+A plant is considered associated with an ISO/RTO if it operates within an organized wholesale electricity market where generation dispatch and transmission operations are coordinated by an independent system operator or regional transmission organization, rather than by a vertically integrated utility. 
+Most states in the Midwest and Northeast, as well as California, have a majority of their generation capacity associated with ISO/RTOs, often exceeding 80%. In contrast, states in the Southeast and parts of the West show little to no ISO/RTO participation and are primarily served by vertically integrated utilities, illustrating a strong regional pattern in U.S. electricity market organization.
+
+# Question 2: RTO/ISO vs Non-RTO/ISO States
+
+States were classified based on whether at least 51% of generation capacity is associated with an ISO/RTO.
+
+```{python}
+df_q2 = pd.read_csv("data/A1_Q2.csv")
+df_q2
+```
+
+# Question 3: Retail Electricity Prices
+
+```{python}
+df_q3 = pd.read_csv("data/A1_Q3.csv")
+df_q3
+```
+
+Residential electricity prices in September 2025 average 21.33 cents/kWh in RTO/ISO states, compared to 14.77 cents/kWh in non-RTO/ISO states. RTO/ISO states also exhibit greater price dispersion, with prices ranging from 12.36 to 32.04 cents/kWh, whereas non-RTO/ISO states show a much narrower range of 11.95 to 16.70 cents/kWh. Overall, non-RTO/ISO states tend to exhibit lower and more homogeneous residential electricity prices, although this comparison does not control for differences in fuel mix, geography, or regulatory environments.
+
+# Question 4: Industry Participants and PJM
+
+The diagram below summarizes the structure of U.S. electricity industry participants and contrasts vertically integrated utilities with organized wholesale electricity markets such as PJM.
+
+<img src="figures/Q4.png" style="width:100%">
+
+*Figure: Structure of U.S. electricity industry participants, combining Kirschen & Strbac models with PJM member categories.*
