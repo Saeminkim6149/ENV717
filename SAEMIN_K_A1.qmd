@@ -1,0 +1,13 @@
+---
+title: "Assignment 1: Structure of the U.S. Electricity Industry"
+author: "Saemin Kim"
+format:
+  pdf:
+    toc: true
+    number-sections: true
+execute:
+  echo: false
+---
+# Introduction
+
+This report analyzes the structure of the U.S. electricity industry using the EPA eGRID2023 dataset and PJM market information.
