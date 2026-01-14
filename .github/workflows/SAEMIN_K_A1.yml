@@ -29,4 +29,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: SAEMIN_K_A1_PDF
-          path: _site/SAEMIN_K_A1.pdf
+          path: SAEMIN_K_A1.pdf
