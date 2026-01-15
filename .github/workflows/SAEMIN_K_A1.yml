@@ -22,11 +22,12 @@ jobs:
       - name: Install Python & dependencies
         run: |
           python3 -m pip install --upgrade pip
+          # tabulate는 to_markdown 사용 시 필수입니다.
           python3 -m pip install jupyter nbformat nbconvert ipykernel pandas numpy openpyxl tabulate
 
       - name: Render PDF with Quarto
         run: |
-          # Quarto가 렌더링 중 부족한 LaTeX 패키지를 자동으로 감지하여 설치합니다.
+          # 렌더링 중 필요한 LaTeX 패키지는 Quarto가 자동으로 감지하여 설치합니다.
           quarto render SAEMIN_K_A1.qmd --to pdf
 
       - name: Upload PDF artifact
