@@ -14,6 +14,7 @@ format:
         \usepackage{longtable}
         \usepackage{array}
         \usepackage{adjustbox}
+        % 모든 표의 폭을 페이지 너비에 맞게 강제 조정
         \makeatletter
         \let\oldlt\longtable
         \let\endoldlt\endlongtable
@@ -30,11 +31,11 @@ jupyter: python3
 import pandas as pd
 from IPython.display import display, Markdown
 
-# 클리닝 함수: 모든 표의 언더스코어 제거 및 출력
+# 언더스코어 제거 및 표 출력 함수
 def display_clean_table(df):
-    # 컬럼명 처리
+    # 컬럼명에서 _ 제거
     df.columns = [str(c).replace('_', ' ') for c in df.columns]
-    # 데이터 내용 처리 (문자열인 경우에만)
+    # 데이터 내용에서 _ 제거
     df = df.apply(lambda x: x.str.replace('_', ' ') if x.dtype == "object" else x)
     display(Markdown(df.to_markdown(index=False)))
 ```
