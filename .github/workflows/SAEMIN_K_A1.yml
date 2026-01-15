@@ -22,13 +22,16 @@ jobs:
         run: |
           Rscript -e "install.packages('tinytex', repos='https://cran.rstudio.com/')"
           Rscript -e "tinytex::install_tinytex()"
+        # first-time run may take a bit longer
 
-      - name: Install Python Jupyter deps
+      - name: Install Python Jupyter & data deps
         run: |
           python3 -m pip install --upgrade pip
           python3 -m pip install jupyter nbformat nbconvert ipykernel
+          python3 -m pip install pandas numpy openpyxl
+        # pandas/numpy/openpyxl: for your Python chunks reading CSV/XLSX
 
-      - name: (optional) list files (debug)
+      - name: (optional) list repo files (debug)
         run: ls -la
 
       - name: Render PDF with Quarto
