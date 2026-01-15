@@ -12,14 +12,7 @@ header-includes:
   - \usepackage{booktabs}
 ---
 
-# Introduction
-
-This report analyzes the structure of the U.S. electricity industry using the EPA eGRID2023 dataset and PJM market information.
-
 # Question 1: Overview of the U.S. Electricity Industry
-
-This section summarizes ownership structure and ISO/RTO participation using eGRID 2023 data.
-
 ## Question 1a: Ownership Structure
 
 ```{python}
@@ -60,6 +53,6 @@ Residential electricity prices in September 2025 average 21.33 cents/kWh in RTO/
 
 The diagram below summarizes the structure of U.S. electricity industry participants and contrasts vertically integrated utilities with organized wholesale electricity markets.
 
-<img src="figures/Q4.png" style="width:100%">
+![Structure of U.S. electricity industry](figures/Q4.png){width=100%}
 
 *Figure: Structure of U.S. electricity industry participants, combining Kirschen & Strbac models with PJM member categories.*
