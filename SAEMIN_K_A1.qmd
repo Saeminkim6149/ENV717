@@ -8,18 +8,13 @@ format:
     pdf-engine: xelatex
     geometry:
       - margin=1in
+    # 에러를 유발하던 adjustbox 재정의를 삭제하고 필요한 패키지만 남깁니다.
     include-in-header:
       text: |
         \usepackage{booktabs}
         \usepackage{longtable}
-        \usepackage{adjustbox}
+        \usepackage{array}
         \usepackage{caption}
-        % 표가 너무 넓으면 자동으로 폭을 맞춰주는 마법의 코드
-        \makeatletter
-        \let\oldlt\longtable
-        \let\endoldlt\endlongtable
-        \renewenvironment{longtable}{\begin{adjustbox}{max width=\textwidth}\oldlt}{\endoldlt\endadjustbox}
-        \makeatother
 execute:
   echo: false
   warning: false
@@ -35,10 +30,10 @@ jupyter: python3
 import pandas as pd
 from IPython.display import display, Markdown
 
-# 데이터 로드
 df_q1a = pd.read_csv("data/A1_Q1a.csv")
 
-# 표가 잘리지 않게 Markdown으로 출력
+# 표가 잘리는 것을 방지하기 위해 스타일을 지정합니다.
+# 데이터가 너무 많다면 폰트 사이즈를 작게 조절하는 것이 가장 안전합니다.
 display(Markdown(df_q1a.to_markdown(index=False)))
 ```
 
