@@ -16,9 +16,10 @@ jupyter: python3
 ## Question 1a: Ownership Structure
 
 ```{python}
+from IPython.display import display, Markdown
 import pandas as pd
 df_q1a = pd.read_csv("data/A1_Q1a.csv")
-df_q1a
+print(df_q1a.to_markdown())
 ```
 
 ## Question 1b: ISO/RTO Association by State
