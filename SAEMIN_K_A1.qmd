@@ -76,7 +76,7 @@ Residential electricity prices in September 2025 average 21.33 cents/kWh in RTO/
 \newpage
 \begin{landscape}
 
-# Question 4: Industry Participants and PJM
+\section{Question 4: Industry Participants and PJM}
 
 The diagram below summarizes the structure of U.S. electricity industry participants and contrasts vertically integrated utilities with organized wholesale electricity markets.
 
