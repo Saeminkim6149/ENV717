@@ -15,6 +15,7 @@ format:
         \usepackage{array}
         \usepackage{caption}
         \usepackage{pdflscape}
+        \usepackage{graphicx}
 execute:
   echo: false
   warning: false
@@ -80,8 +81,10 @@ Residential electricity prices in September 2025 average 21.33 cents/kWh in RTO/
 
 The diagram below summarizes the structure of U.S. electricity industry participants and contrasts vertically integrated utilities with organized wholesale electricity markets.
 
-![Structure of U.S. electricity industry](figures/Q4.png){width=100%}
+\begin{center}
+\includegraphics[width=1.0\linewidth]{figures/Q4.png}
+\end{center}
 
-*Figure: Structure of U.S. electricity industry participants, combining Kirschen \& Strbac models with PJM member categories.*
+\textit{Figure: Structure of U.S. electricity industry participants, combining Kirschen \& Strbac models with PJM member categories.}
 
 \end{landscape}
