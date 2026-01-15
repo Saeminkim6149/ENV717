@@ -13,13 +13,7 @@ format:
         \usepackage{booktabs}
         \usepackage{longtable}
         \usepackage{array}
-        % 표가 옆으로 삐져나가는 것을 방지하는 안정적인 설정
-        \usepackage{adjustbox}
-        \makeatletter
-        \let\oldlt\longtable
-        \let\endoldlt\endlongtable
-        \renewenvironment{longtable}{\begin{adjustbox}{max width=\textwidth}\oldlt}{\endoldlt\endadjustbox}
-        \makeatother
+        \usepackage{caption}
 execute:
   echo: false
   warning: false
@@ -31,13 +25,13 @@ jupyter: python3
 import pandas as pd
 from IPython.display import display, Markdown
 
-# 언더스코어(_)를 제거하고 표를 출력하는 함수
+# 언더스코어 제거 및 표 가독성 개선 함수
 def display_clean_table(df):
-    # 컬럼명 처리
+    # 1. 컬럼명에서 _ 제거
     df.columns = [str(c).replace('_', ' ') for c in df.columns]
-    # 데이터 내용 처리
+    # 2. 데이터 내용에서 _ 제거 (문자열인 경우)
     df = df.apply(lambda x: x.str.replace('_', ' ') if x.dtype == "object" else x)
-    # 마크다운 표 생성
+    # 3. 마크다운 변환 및 출력
     display(Markdown(df.to_markdown(index=False)))
 ```
 
