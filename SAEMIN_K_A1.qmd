@@ -6,8 +6,24 @@ format:
     toc: true
     number-sections: true
     pdf-engine: xelatex
+    geometry:
+      - margin=1in
+    include-in-header:
+      text: |
+        \usepackage{booktabs}
+        \usepackage{longtable}
+        \usepackage{adjustbox}
+        \usepackage{caption}
+        % 표가 너무 넓으면 자동으로 폭을 맞춰주는 마법의 코드
+        \makeatletter
+        \let\oldlt\longtable
+        \let\endoldlt\endlongtable
+        \renewenvironment{longtable}{\begin{adjustbox}{max width=\textwidth}\oldlt}{\endoldlt\endadjustbox}
+        \makeatother
 execute:
   echo: false
+  warning: false
+  message: false
 jupyter: python3
 ---
 
@@ -16,17 +32,21 @@ jupyter: python3
 ## Question 1a: Ownership Structure
 
 ```{python}
-from IPython.display import display, Markdown
 import pandas as pd
+from IPython.display import display, Markdown
+
+# 데이터 로드
 df_q1a = pd.read_csv("data/A1_Q1a.csv")
-print(df_q1a.to_markdown())
+
+# 표가 잘리지 않게 Markdown으로 출력
+display(Markdown(df_q1a.to_markdown(index=False)))
 ```
 
 ## Question 1b: ISO/RTO Association by State
 
 ```{python}
 df_q1b = pd.read_csv("data/A1_Q1b.csv")
-df_q1b
+display(Markdown(df_q1b.to_markdown(index=False)))
 ```
 
 A plant is considered associated with an ISO/RTO if it operates within an organized wholesale electricity market where generation dispatch and transmission operations are coordinated by an independent system operator or regional transmission organization, rather than by a vertically integrated utility. 
@@ -38,14 +58,14 @@ States were classified based on whether at least 51% of generation capacity is a
 
 ```{python}
 df_q2 = pd.read_csv("data/A1_Q2.csv")
-df_q2
+display(Markdown(df_q2.to_markdown(index=False)))
 ```
 
 # Question 3: Retail Electricity Prices
 
 ```{python}
 df_q3 = pd.read_csv("data/A1_Q3.csv")
-df_q3
+display(Markdown(df_q3.to_markdown(index=False)))
 ```
 
 Residential electricity prices in September 2025 average 21.33 cents/kWh in RTO/ISO states, compared to 14.77 cents/kWh in non-RTO/ISO states. RTO/ISO states also exhibit greater price dispersion, with prices ranging from 12.36 to 32.04 cents/kWh, whereas non-RTO/ISO states show a much narrower range of 11.95 to 16.70 cents/kWh. Overall, non-RTO/ISO states tend to exhibit lower and more homogeneous residential electricity prices, although this comparison does not control for differences in fuel mix, geography, or regulatory environments.
