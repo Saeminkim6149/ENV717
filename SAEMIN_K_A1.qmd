@@ -5,11 +5,10 @@ format:
   pdf:
     toc: true
     number-sections: true
+    pdf-engine: xelatex
 execute:
   echo: false
-header-includes:
-  - \usepackage{adjustbox}
-  - \usepackage{booktabs}
+jupyter: python3
 ---
 
 # Question 1: Overview of the U.S. Electricity Industry
