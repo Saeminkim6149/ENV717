@@ -18,8 +18,6 @@ jobs:
       - name: Install TinyTeX
         run: |
           quarto install tool tinytex
-          # tlmgr를 직접 쓰지 않고 quarto를 통해 필요한 패키지를 미리 설치하거나 
-          # 렌더링 시 자동 설치되도록 합니다.
 
       - name: Install Python & dependencies
         run: |
@@ -28,8 +26,7 @@ jobs:
 
       - name: Render PDF with Quarto
         run: |
-          # --no-cache를 넣어 데이터 변경 시 즉각 반영되도록 하고
-          # PDF 생성에 필요한 LaTeX 패키지는 Quarto가 자동으로 감지해 설치합니다.
+          # 렌더링 시 필요한 LaTeX 패키지를 Quarto가 자동 설치함
           quarto render SAEMIN_K_A1.qmd --to pdf
 
       - name: Upload PDF artifact
@@ -37,5 +34,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: SAEMIN_K_A1_Outputs
-          path: |
-            SAEMIN_K_A1.pdf
+          path: SAEMIN_K_A1.pdf
