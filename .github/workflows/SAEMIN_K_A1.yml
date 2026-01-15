@@ -15,10 +15,11 @@ jobs:
       - name: Setup Quarto
         uses: quarto-dev/quarto-actions/setup@v2
 
-      - name: Install TinyTeX
+      - name: Install TinyTeX & TeX Packages
         run: |
           quarto install tinytex
-
+          tlmgr install koma-script adjustbox caption graphics tools graphics-cfg graphics-def
+          
       - name: Install Python & dependencies
         run: |
           python3 -m pip install --upgrade pip
@@ -26,7 +27,7 @@ jobs:
 
       - name: Render PDF with Quarto
         run: |
-          quarto render SAEMIN_K_A1.qmd --to pdf --verbose
+          quarto render SAEMIN_K_A1.qmd --to pdf
 
       - name: Upload PDF artifact
         if: always() 
