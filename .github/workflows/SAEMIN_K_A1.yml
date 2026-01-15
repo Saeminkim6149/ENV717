@@ -15,34 +15,24 @@ jobs:
       - name: Setup Quarto
         uses: quarto-dev/quarto-actions/setup@v2
 
-      - name: Set up R (for TinyTeX)
-        uses: r-lib/actions/setup-r@v2
-
-      - name: Install TinyTeX (for LaTeX -> PDF)
+      - name: Install TinyTeX
         run: |
-          Rscript -e "install.packages('tinytex', repos='https://cran.rstudio.com/')"
-          Rscript -e "tinytex::install_tinytex()"
-        # first-time run may take a bit longer
+          quarto install tinytex
 
-      - name: Install Python Jupyter & data deps
+      - name: Install Python & dependencies
         run: |
           python3 -m pip install --upgrade pip
-          python3 -m pip install jupyter nbformat nbconvert ipykernel
-          python3 -m pip install pandas numpy openpyxl
-        # pandas/numpy/openpyxl: for your Python chunks reading CSV/XLSX
-
-      - name: (optional) list repo files (debug)
-        run: ls -la
+          python3 -m pip install jupyter nbformat nbconvert ipykernel pandas numpy openpyxl
 
       - name: Render PDF with Quarto
         run: |
-          quarto render SAEMIN_K_A1.qmd --to pdf
-
-      - name: List output files (debug)
-        run: ls -la
+          quarto render SAEMIN_K_A1.qmd --to pdf --verbose
 
       - name: Upload PDF artifact
+        if: always() 
         uses: actions/upload-artifact@v4
         with:
-          name: SAEMIN_K_A1_PDF
-          path: SAEMIN_K_A1.pdf
+          name: SAEMIN_K_A1_Outputs
+          path: |
+            SAEMIN_K_A1.pdf
+            SAEMIN_K_A1.log
