@@ -1,3 +1,7 @@
+header-includes:
+  - \usepackage{adjustbox}
+  - \usepackage{booktabs}
+
 ---
 title: "Assignment 1: Structure of the U.S. Electricity Industry"
 author: "Saemin Kim"
