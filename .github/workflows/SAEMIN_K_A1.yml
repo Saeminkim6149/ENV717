@@ -26,7 +26,7 @@ jobs:
 
       - name: Render PDF with Quarto
         run: |
-          # 렌더링 시 필요한 LaTeX 패키지를 Quarto가 자동 설치함
+          # Quarto가 렌더링 중 부족한 LaTeX 패키지를 자동으로 감지하여 설치합니다.
           quarto render SAEMIN_K_A1.qmd --to pdf
 
       - name: Upload PDF artifact
