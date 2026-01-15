@@ -12,6 +12,7 @@ jupyter: python3
 ---
 
 # Question 1: Overview of the U.S. Electricity Industry
+
 ## Question 1a: Ownership Structure
 
 ```{python}
