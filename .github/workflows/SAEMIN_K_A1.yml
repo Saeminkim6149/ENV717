@@ -18,12 +18,16 @@ jobs:
       - name: Install TinyTeX & TeX Packages
         run: |
           quarto install tinytex
-          tlmgr install koma-script adjustbox caption graphics tools graphics-cfg graphics-def
-          
+          # 표 레이아웃 조절을 위해 필요한 LaTeX 패키지 추가
+          tlmgr install koma-script adjustbox caption graphics tools \
+                        graphics-cfg graphics-def booktabs longtable \
+                        environ trimspaces etoolbox
+
       - name: Install Python & dependencies
         run: |
           python3 -m pip install --upgrade pip
-          python3 -m pip install jupyter nbformat nbconvert ipykernel pandas numpy openpyxl
+          # 표 렌더링을 위해 'tabulate'가 반드시 필요합니다.
+          python3 -m pip install jupyter nbformat nbconvert ipykernel pandas numpy openpyxl tabulate
 
       - name: Render PDF with Quarto
         run: |
