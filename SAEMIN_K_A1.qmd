@@ -14,7 +14,6 @@ format:
         \usepackage{longtable}
         \usepackage{array}
         \usepackage{adjustbox}
-        % 표 폭 자동 조절 설정
         \makeatletter
         \let\oldlt\longtable
         \let\endoldlt\endlongtable
@@ -31,16 +30,14 @@ jupyter: python3
 import pandas as pd
 from IPython.display import display, Markdown
 
-# 모든 표에 적용할 클리닝 함수 정의
+# 클리닝 함수: 모든 표의 언더스코어 제거 및 출력
 def display_clean_table(df):
-    # 1. 컬럼명에서 _ 제거
+    # 컬럼명 처리
     df.columns = [str(c).replace('_', ' ') for c in df.columns]
-    
-    # 2. 데이터 내용(문자열 열)에서 _ 제거 (LaTeX 에러 방지)
+    # 데이터 내용 처리 (문자열인 경우에만)
     df = df.apply(lambda x: x.str.replace('_', ' ') if x.dtype == "object" else x)
-    
-    # 3. 마크다운 변환 및 출력
     display(Markdown(df.to_markdown(index=False)))
+```
 
 # Question 1: Overview of the U.S. Electricity Industry
 
