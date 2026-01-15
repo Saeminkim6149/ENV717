@@ -14,6 +14,7 @@ format:
         \usepackage{longtable}
         \usepackage{array}
         \usepackage{caption}
+        \usepackage{pdflscape}
 execute:
   echo: false
   warning: false
@@ -72,6 +73,9 @@ display_clean_table(df_q3)
 
 Residential electricity prices in September 2025 average 21.33 cents/kWh in RTO/ISO states, compared to 14.77 cents/kWh in non-RTO/ISO states. RTO/ISO states also exhibit greater price dispersion, with prices ranging from 12.36 to 32.04 cents/kWh, whereas non-RTO/ISO states show a much narrower range of 11.95 to 16.70 cents/kWh. Overall, non-RTO/ISO states tend to exhibit lower and more homogeneous residential electricity prices, although this comparison does not control for differences in fuel mix, geography, or regulatory environments.
 
+\newpage
+\begin{landscape}
+
 # Question 4: Industry Participants and PJM
 
 The diagram below summarizes the structure of U.S. electricity industry participants and contrasts vertically integrated utilities with organized wholesale electricity markets.
@@ -79,3 +83,5 @@ The diagram below summarizes the structure of U.S. electricity industry particip
 ![Structure of U.S. electricity industry](figures/Q4.png){width=100%}
 
 *Figure: Structure of U.S. electricity industry participants, combining Kirschen & Strbac models with PJM member categories.*
+
+\end{landscape}
