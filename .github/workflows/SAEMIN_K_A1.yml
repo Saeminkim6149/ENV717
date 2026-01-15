@@ -15,22 +15,21 @@ jobs:
       - name: Setup Quarto
         uses: quarto-dev/quarto-actions/setup@v2
 
-      - name: Install TinyTeX & TeX Packages
+      - name: Install TinyTeX
         run: |
-          quarto install tinytex
-          # 표 레이아웃 조절을 위해 필요한 LaTeX 패키지 추가
-          tlmgr install koma-script adjustbox caption graphics tools \
-                        graphics-cfg graphics-def booktabs longtable \
-                        environ trimspaces etoolbox
+          quarto install tool tinytex
+          # tlmgr를 직접 쓰지 않고 quarto를 통해 필요한 패키지를 미리 설치하거나 
+          # 렌더링 시 자동 설치되도록 합니다.
 
       - name: Install Python & dependencies
         run: |
           python3 -m pip install --upgrade pip
-          # 표 렌더링을 위해 'tabulate'가 반드시 필요합니다.
           python3 -m pip install jupyter nbformat nbconvert ipykernel pandas numpy openpyxl tabulate
 
       - name: Render PDF with Quarto
         run: |
+          # --no-cache를 넣어 데이터 변경 시 즉각 반영되도록 하고
+          # PDF 생성에 필요한 LaTeX 패키지는 Quarto가 자동으로 감지해 설치합니다.
           quarto render SAEMIN_K_A1.qmd --to pdf
 
       - name: Upload PDF artifact
@@ -40,4 +39,3 @@ jobs:
           name: SAEMIN_K_A1_Outputs
           path: |
             SAEMIN_K_A1.pdf
-            SAEMIN_K_A1.log
