@@ -45,7 +45,7 @@ def display_clean_table(df):
 df_q1a = pd.read_csv("data/A1_Q1a.csv")
 display_clean_table(df_q1a)
 ```
-
+\newpage
 ## Question 1b: ISO/RTO Association by State
 
 ```{python}
