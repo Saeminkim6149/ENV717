@@ -1,1 +1,94 @@
+---
+title: "Assignment 2: Clearing the Market"
+author: "Saemin Kim"
+format:
+  pdf:
+    toc: true
+    number-sections: true
+    pdf-engine: xelatex
+    geometry:
+      - margin=1in
+    include-in-header:
+      text: |
+        \usepackage{booktabs}
+        \usepackage{longtable}
+        \usepackage{array}
+        \usepackage{caption}
+        \usepackage{pdflscape}
+        \usepackage{graphicx}
+execute:
+  echo: false
+  warning: false
+  message: false
+jupyter: python3
+---
+
+```{python}
+import pandas as pd
+from IPython.display import display, Markdown
+
+# 언더스코어 제거 및 표 가독성 개선 함수
+def display_clean_table(df):
+    # 1. 컬럼명에서 _ 제거
+    df.columns = [str(c).replace('_', ' ') for c in df.columns]
+    # 2. 데이터 내용에서 _ 제거 (문자열인 경우)
+    df = df.apply(lambda x: x.str.replace('_', ' ') if x.dtype == "object" else x)
+    # 3. 마크다운 변환 및 출력
+    display(Markdown(df.to_markdown(index=False)))
+```
+
+# Question 1
+
+## Question 1a: total installed capacity
+148,407.90 MW
+
+## Question 1b: P]M Supply Curve by Fuel Type
+
+```{python}
+df_q1a = pd.read_csv("data/Q1b_final.csv")
+display_clean_table(df_q1a)
+```
+\newpage
+## Question 1b: ISO/RTO Association by State
+
+```{python}
+df_q1b = pd.read_csv("data/A1_Q1b.csv")
+display_clean_table(df_q1b)
+```
+
+A plant is considered associated with an ISO/RTO if it operates within an organized wholesale electricity market where generation dispatch and transmission operations are coordinated by an independent system operator or regional transmission organization, rather than by a vertically integrated utility. 
+Most states in the Midwest and Northeast, as well as California, have a majority of their generation capacity associated with ISO/RTOs, often exceeding 80%. In contrast, states in the Southeast and parts of the West show little to no ISO/RTO participation and are primarily served by vertically integrated utilities, illustrating a strong regional pattern in U.S. electricity market organization.
+
+# Question 2: RTO/ISO vs Non-RTO/ISO States
+
+States were classified based on whether at least 51% of generation capacity is associated with an ISO/RTO.
+
+```{python}
+df_q2 = pd.read_csv("data/A1_Q2.csv")
+display_clean_table(df_q2)
+```
+
+# Question 3: Retail Electricity Prices
+
+```{python}
+df_q3 = pd.read_csv("data/A1_Q3.csv")
+display_clean_table(df_q3)
+```
+
+Residential electricity prices in September 2025 average 21.33 cents/kWh in RTO/ISO states, compared to 14.77 cents/kWh in non-RTO/ISO states. RTO/ISO states also exhibit greater price dispersion, with prices ranging from 12.36 to 32.04 cents/kWh, whereas non-RTO/ISO states show a much narrower range of 11.95 to 16.70 cents/kWh. Overall, non-RTO/ISO states tend to exhibit lower and more homogeneous residential electricity prices, although this comparison does not control for differences in fuel mix, geography, or regulatory environments.
+
+\newpage
+\begin{landscape}
+
+\section{Question 4: Industry Participants and PJM}
+
+The diagram below summarizes the structure of U.S. electricity industry participants and contrasts vertically integrated utilities with organized wholesale electricity markets.
+
+\begin{center}
+\includegraphics[width=1.0\linewidth]{figures/Q4.png}
+\end{center}
+
+\textit{Figure: Structure of U.S. electricity industry participants, combining Kirschen \& Strbac models with PJM member categories.}
+
+\end{landscape}
 
