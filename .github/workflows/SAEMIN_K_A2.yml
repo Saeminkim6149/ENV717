@@ -1,0 +1,54 @@
+name: Render SAEMIN_K_A2 PDF
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+
+      # Stable LaTeX installation (avoids TinyTeX 403 issues)
+      - name: Install LaTeX (TeX Live)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            texlive \
+            texlive-latex-extra \
+            texlive-fonts-recommended \
+            texlive-xetex \
+            texlive-lang-english \
+            cm-super
+
+      - name: Install Python & dependencies
+        run: |
+          python3 -m pip install --upgrade pip
+          python3 -m pip install \
+            jupyter \
+            nbformat \
+            nbconvert \
+            ipykernel \
+            pandas \
+            numpy \
+            openpyxl \
+            tabulate
+
+      - name: Render PDF with Quarto
+        run: |
+          quarto render SAEMIN_K_A2.qmd --to pdf
+
+      - name: Upload PDF artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: SAEMIN_K_A2_PDF
+          # safer in case Quarto outputs to a subdirectory
+          path: "**/SAEMIN_K_A2.pdf"
