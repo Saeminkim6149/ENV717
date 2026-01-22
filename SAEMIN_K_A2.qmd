@@ -18,7 +18,7 @@ from IPython.display import display, Markdown, Image
 pd.options.display.float_format = '{:,.2f}'.format
 
 def check_exists(path):
-return path is not None and os.path.exists(path)
+    return path is not None and os.path.exists(path)
 ```
 
 # Question 1: Market Clearing under Inelastic Demand
