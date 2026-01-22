@@ -11,7 +11,7 @@ date: "`r Sys.Date()`"
 
 ```{python}
 #| echo: false
-import os
+import os 
 import pandas as pd
 from IPython.display import display, Markdown, Image
 
