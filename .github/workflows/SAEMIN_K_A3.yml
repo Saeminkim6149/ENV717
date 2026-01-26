@@ -1,0 +1,48 @@
+# SAEMIN_K_A3.yml
+# GitHub Actions workflow to render SAEMIN_K_A3.qmd to PDF using Quarto
+# Triggers on push to main (adjust as needed)
+
+name: Render SAEMIN_K_A3 PDF
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  render-pdf:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Quarto
+        # Install Quarto (quarto action installs Quarto CLI)
+        uses: quarto-dev/quarto-action@v2
+        with:
+          command: 'install'   # ensure quarto is available
+
+      - name: Install TeX (TinyTeX via R) for PDF rendering
+        # This step installs TinyTeX so PDF rendering with LaTeX works
+        run: |
+          sudo apt-get update -y
+          # install R & dependencies (if missing)
+          sudo apt-get install -y --no-install-recommends r-base texinfo texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended
+          Rscript -e "if (!require('tinytex')) install.packages('tinytex', repos='https://cloud.r-project.org')"
+          Rscript -e "tinytex::install_tinytex(repository='illinois')" || true
+
+      - name: Install R packages for report (kableExtra used for table styling)
+        run: |
+          Rscript -e "install.packages(c('readr','knitr','kableExtra','dplyr','stringr'), repos='https://cran.rstudio.com')"
+
+      - name: Render Quarto document to PDF
+        # Render the QMD using quarto CLI
+        run: |
+          quarto render SAEMIN_K_A3.qmd --to pdf --output SAEMIN_K_A3.pdf
+
+      - name: Upload artifact (PDF)
+        uses: actions/upload-artifact@v4
+        with:
+          name: SAEMIN_K_A3_pdf
+          path: SAEMIN_K_A3.pdf
