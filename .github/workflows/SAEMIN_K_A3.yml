@@ -15,14 +15,16 @@ jobs:
 
       - name: Setup Quarto CLI
         uses: quarto-dev/quarto-actions/setup@v2
-        # no empty keys under 'with' to avoid YAML parse issues
 
-      - name: Install system deps (TeX) and R tinytex
+      - name: Install system deps (R, TeX) and R tinytex
         run: |
           sudo apt-get update -y
+          # Install R (so Rscript is available) and minimal system packages for LaTeX
           sudo apt-get install -y --no-install-recommends \
+            r-base r-base-core \
             texinfo texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended \
             texlive-fonts-extra fonts-dejavu-core
+          # Install TinyTeX via R (helps providing missing LaTeX packages later)
           Rscript -e "if (!require('tinytex', quietly=TRUE)) install.packages('tinytex', repos='https://cloud.r-project.org')"
           Rscript -e "tinytex::install_tinytex(repository='illinois')" || true
 
