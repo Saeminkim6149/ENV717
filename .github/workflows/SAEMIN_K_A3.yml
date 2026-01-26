@@ -16,21 +16,28 @@ jobs:
       - name: Setup Quarto CLI
         uses: quarto-dev/quarto-actions/setup@v2
 
-      - name: Install system deps (R, TeX) and R tinytex
+      - name: Install system deps (R, TeX)
         run: |
           sudo apt-get update -y
-          # Install R (so Rscript is available) and minimal system packages for LaTeX
+          # Install R and tex packages (R provides Rscript)
           sudo apt-get install -y --no-install-recommends \
             r-base r-base-core \
             texinfo texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended \
             texlive-fonts-extra fonts-dejavu-core
-          # Install TinyTeX via R (helps providing missing LaTeX packages later)
-          Rscript -e "if (!require('tinytex', quietly=TRUE)) install.packages('tinytex', repos='https://cloud.r-project.org')"
-          Rscript -e "tinytex::install_tinytex(repository='illinois')" || true
 
-      - name: Install R packages for tables/formatting
+      - name: Prepare R user library and install R packages (user lib)
+        env:
+          R_LIBS_USER: ${{ runner.temp }}/R_libs   # use runner.temp (writable) or $HOME/R/library
         run: |
-          Rscript -e "install.packages(c('readr','knitr','kableExtra','dplyr','stringr'), repos='https://cloud.r-project.org')"
+          # make the user library directory and ensure R sees it
+          R_LIB="${R_LIBS_USER}"
+          mkdir -p "$R_LIB"
+          echo "R user lib: $R_LIB"
+          # install tinytex + helper packages into the user library
+          Rscript -e "install.packages(c('tinytex','readr','knitr','kableExtra','dplyr','stringr'), repos='https://cloud.r-project.org', lib = Sys.getenv('R_LIBS_USER'))"
+          # install TinyTeX into the user home (no sudo)
+          Rscript -e "tinytex::install_tinytex(dir = Sys.getenv('RUNNER_TEMP'))"
+        shell: bash
 
       - name: Render Quarto document to PDF
         uses: quarto-dev/quarto-actions/render@v2
