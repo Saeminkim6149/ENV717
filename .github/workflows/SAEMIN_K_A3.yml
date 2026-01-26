@@ -15,28 +15,22 @@ jobs:
 
       - name: Setup Quarto CLI
         uses: quarto-dev/quarto-actions/setup@v2
-        with:
-          # optional: specify a version, or leave blank for latest
-          # version: "1.5.66"  
+        # no empty keys under 'with' to avoid YAML parse issues
 
       - name: Install system deps (TeX) and R tinytex
-        # Note: PDF rendering requires LaTeX. This installs TeX packages and TinyTeX.
         run: |
           sudo apt-get update -y
-          # minimal texlive packages; may need more for complex documents
           sudo apt-get install -y --no-install-recommends \
             texinfo texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended \
             texlive-fonts-extra fonts-dejavu-core
-          # Install TinyTeX via R (provides more LaTeX packages if needed)
           Rscript -e "if (!require('tinytex', quietly=TRUE)) install.packages('tinytex', repos='https://cloud.r-project.org')"
           Rscript -e "tinytex::install_tinytex(repository='illinois')" || true
 
-      - name: Install R packages (for table formatting in .qmd)
+      - name: Install R packages for tables/formatting
         run: |
           Rscript -e "install.packages(c('readr','knitr','kableExtra','dplyr','stringr'), repos='https://cloud.r-project.org')"
 
       - name: Render Quarto document to PDF
-        # Use the render action which will call `quarto render` for us
         uses: quarto-dev/quarto-actions/render@v2
         with:
           render-command: quarto render SAEMIN_K_A3.qmd --to pdf --output SAEMIN_K_A3.pdf
